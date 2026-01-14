@@ -1,6 +1,16 @@
+---
+description: Extract knowledge from this conversation into structured markdown files
+allowed-tools: Read, Write, Glob, Edit
+context: inline
+---
+
 # Capture Conversation Logic
 
-Review this conversation and extract its knowledge into structured `.md` files.
+Review this conversation and extract its knowledge into structured `.md` files in the `docs/knowledge/` directory.
+
+Reference these files:
+- @CLAUDE.md - Add knowledge base instructions if not present
+- @docs/knowledge/_index.md - Update with new entries
 
 ## Three Tiers of Knowledge
 
@@ -30,7 +40,7 @@ Useful information that informs work but doesn't constrain it.
 
 ## Output Structure
 
-### 1. Individual Files (`[topic-name].md`)
+### 1. Individual Files (`docs/knowledge/[tier]/[topic-name].md`)
 For each distinct item, create a file containing:
 
 **Tier:** `constraint` | `decision` | `context`
@@ -58,13 +68,29 @@ After creating files, update the index organized by tier:
 # Knowledge Base Index
 
 ## Constraints
-- [filename.md](./path) — description
+- [filename.md](./constraints/filename.md) — description
 
-## Decisions  
-- [filename.md](./path) — description
+## Decisions
+- [filename.md](./decisions/filename.md) — description
 
 ## Context
-- [filename.md](./path) — description
+- [filename.md](./context/filename.md) — description
+```
+
+### 3. Update CLAUDE.md
+If not already present, add this section to CLAUDE.md:
+
+```markdown
+## Knowledge Base
+
+Before starting work, check `docs/knowledge/_index.md` for existing knowledge.
+
+Knowledge is organized into three tiers:
+- **Constraints** → follow strictly, do not violate without flagging
+- **Decisions** → follow unless there's reason to revisit, suggest changes if context shifted
+- **Context** → use to inform your approach, not to constrain
+
+Scan the index, load relevant files, and apply them according to their tier.
 ```
 
 ## File Placement
@@ -87,5 +113,5 @@ Save to `docs/knowledge/` with subfolders:
 
 Future sessions read `_index.md` and apply knowledge based on tier:
 - **Constraints** → follow strictly
-- **Decisions** → follow unless there's reason to revisit  
+- **Decisions** → follow unless there's reason to revisit
 - **Context** → use to inform approach
