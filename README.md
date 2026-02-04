@@ -44,6 +44,7 @@ Run `/capture-conversation` at the end of a session (or as you make decisions). 
 - Classify each item as constraint, decision, or context
 - Create files in the appropriate `docs/knowledge/` subfolder
 - Update `_index.md` with new entries
+- Auto-update `CLAUDE.md` with knowledge base instructions if not present
 
 ### Using Knowledge
 
@@ -55,6 +56,34 @@ New sessions automatically benefit:
    - **Constraints** → follows strictly
    - **Decisions** → follows, may suggest revisiting
    - **Context** → uses to inform approach
+
+### Example Knowledge File
+
+Here's what a captured knowledge file looks like:
+
+```markdown
+**Tier:** decision
+
+**Summary**
+Use Tailwind CSS for styling instead of custom CSS
+
+**Detail**
+- Switched from writing custom CSS to using Tailwind utility classes
+- Applied across all component files in src/components/
+- Configured in tailwind.config.js with custom theme extensions
+
+**Reasoning**
+- Reduces CSS bundle size and eliminates unused styles
+- Provides consistent design system through configuration
+- Faster development with utility-first approach
+- Team already familiar with Tailwind from previous projects
+
+**Usage**
+Continue using Tailwind for all new components. Revisit if:
+- Bundle size becomes an issue despite purging
+- Team composition changes and new members prefer different approach
+- Design system needs exceed Tailwind's customization capabilities
+```
 
 ## Folder Structure
 
