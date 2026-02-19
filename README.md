@@ -47,7 +47,7 @@ It does **not** scan subdirectories. So commands inside `context-knowledgebase/.
 **Step 1: Clone into your project**
 ```bash
 cd your-project
-git clone https://github.com/YOUR_USERNAME/context-knowledge-base.git context-knowledgebase
+git clone https://github.com/justin-sdx/context-knowledgebase.git context-knowledgebase
 ```
 
 **Step 2: Bootstrap the commands**
