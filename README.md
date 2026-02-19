@@ -76,14 +76,40 @@ chmod +x .git/hooks/pre-commit
 
 ### Adding to a new project (after first-time setup)
 
-Once the global commands are installed, Step 2 (the manual copy) is no longer needed. For any new project:
+Once the global commands are installed, you don't need to clone the repo again. Just open Claude Code in any project and run:
 
+```
+/setup-knowledge-base
+```
+
+That's it. No cloning needed.
+
+### Using without global installation
+
+If you prefer commands scoped to a specific project — useful for team repos where not everyone has done the global install:
+
+**Step 1: Clone into your project**
 ```bash
-cd new-project
+cd your-project
 git clone https://github.com/justin-sdx/context-knowledgebase.git context-knowledgebase
 ```
 
-Then open Claude Code and run `/setup-knowledge-base`. The global install handles the rest.
+**Step 2: Bootstrap the commands**
+```bash
+mkdir -p .claude/commands
+cp context-knowledgebase/.claude/commands/*.md .claude/commands/
+```
+
+**Step 3: Open Claude Code and run**
+```
+/setup-knowledge-base
+```
+
+When prompted about global installation, choose **No** to keep commands project-scoped.
+
+**Step 4: Commit `.claude/commands/` to git**
+
+This means teammates get the commands automatically on clone — no setup required on their end.
 
 ### Auto-detection
 
@@ -136,26 +162,27 @@ After setup, your project will look like this:
 
 ```
 your-project/
-├── .claude/
-│   └── commands/
-│       ├── capture-conversation.md   # /capture-conversation
-│       ├── prune-knowledge.md        # /prune-knowledge
-│       └── setup-knowledge-base.md  # /setup-knowledge-base
-├── context-knowledgebase/            # this repo
-│   ├── .claude/
-│   │   ├── commands/                 # source of truth for commands
-│   │   └── templates/
-│   │       ├── knowledge-template.md
-│   │       ├── pre-commit-hook.sh
-│   │       └── INSTALL-HOOKS.md
-│   └── docs/knowledge/               # example files only
 ├── docs/
-│   └── knowledge/                    # your actual knowledge lives here
-│       ├── _index.md                 # master index (auto-updated)
-│       ├── constraints/              # hard rules
-│       ├── decisions/                # choices made
-│       └── context/                  # background info
-└── CLAUDE.md                         # project instructions (includes KB section)
+│   └── knowledge/          # your knowledge lives here
+│       ├── _index.md       # master index (auto-updated)
+│       ├── constraints/    # hard rules
+│       ├── decisions/      # choices made
+│       └── context/        # background info
+└── CLAUDE.md               # project instructions (includes KB section)
+```
+
+If you used the **project-local** approach (no global install), you'll also have:
+
+```
+your-project/
+├── .claude/
+│   └── commands/           # committed to git so teammates get commands on clone
+│       ├── capture-conversation.md
+│       ├── prune-knowledge.md
+│       └── setup-knowledge-base.md
+├── context-knowledgebase/  # this repo (source of truth for commands)
+├── docs/knowledge/
+└── CLAUDE.md
 ```
 
 ---
@@ -211,13 +238,17 @@ Continue using Tailwind for all new components. Revisit if:
 
 ### Slash commands not appearing
 
-**Cause:** Commands are in a subdirectory, not the project root or `~/.claude/commands/`.
+**Cause:** Commands haven't been installed to the project root or `~/.claude/commands/`.
 
-**Fix:**
+**Fix (if you have the repo cloned locally):**
 ```bash
 mkdir -p .claude/commands
 cp context-knowledgebase/.claude/commands/*.md .claude/commands/
 ```
+
+**Fix (if you've done the global install):**
+Run `/setup-knowledge-base` from your project — it will create the folder structure without needing the repo.
+
 Then restart Claude Code.
 
 ### Knowledge not being applied in new sessions
