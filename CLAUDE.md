@@ -1,5 +1,15 @@
 # Project Instructions
 
+## Setup Detection
+
+At the START of every session, check if the knowledge base has been initialized:
+
+1. Look for `docs/knowledge/_index.md` in the project root (the directory where Claude Code was launched, NOT inside this repo)
+2. If it does NOT exist → tell the user: "It looks like the knowledge base hasn't been set up yet. Run `/setup-knowledge-base` to initialize it (takes ~10 seconds)."
+3. If it DOES exist → proceed normally with the Knowledge Base instructions below
+
+Do this check silently — only speak up if setup is missing.
+
 ## Knowledge Base
 
 Before starting work, check `docs/knowledge/_index.md` for existing knowledge.
