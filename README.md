@@ -80,7 +80,7 @@ Once the global commands are installed, Step 2 (the manual copy) is no longer ne
 
 ```bash
 cd new-project
-git clone https://github.com/YOUR_USERNAME/context-knowledge-base.git context-knowledgebase
+git clone https://github.com/justin-sdx/context-knowledgebase.git context-knowledgebase
 ```
 
 Then open Claude Code and run `/setup-knowledge-base`. The global install handles the rest.
